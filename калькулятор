@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Калькулятор кухни</title>
+	<meta charset="utf-8">
+</head>
+<body>
+	<h1>Калькулятор кухни</h1>
+	<form>
+		<label>Длина кухни, м:</label>
+		<input type="number" name="kitchen-length" step="0.1" required><br>
+
+		<label>Высота кухни, м:</label>
+		<input type="number" name="kitchen-height" step="0.1" required><br>
+
+		<label>Фасады:</label>
+		<select name="facade" required>
+			<option value="dsp">ДСП</option>
+			<option value="mdf">МДФ</option>
+		</select><br>
+
+		<label>Столешница:</label>
+		<select name="countertop" required>
+			<option value="dsp">ДСП</option>
+			<option value="artificial-stone">Искусственный камень</option>
+		</select><br>
+
+		<input type="button" value="Рассчитать" onclick="calculate()"><br>
+
+		<label>Стоимость кухни, $:</label>
+		<input type="text" name="result" readonly>
+	</form>
+
+	<script>
+		function calculate() {
+			let kitchenLength = document.getElementsByName("kitchen-length")[0].value;
+			let kitchenHeight = document.getElementsByName("kitchen-height")[0].value;
+			let facade = document.getElementsByName("facade")[0].value;
+			let countertop = document.getElementsByName("countertop")[0].value;
+
+			let basicPrice = 300;
+			let facadePrice = (kitchenHeight - 0.6) * kitchenLength * (facade === "dsp" ? 25 : 45);
+			let countertopPrice = kitchenLength * (countertop === "dsp" ? 40 : 250);
+			let totalPrice = 1.6 * (basicPrice * kitchenLength + facadePrice) + countertopPrice;
+
+			document.getElementsByName("result")[0].value = totalPrice.toFixed(2);
+		}
+	</script>
+</body>
+</html>
